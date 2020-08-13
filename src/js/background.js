@@ -714,6 +714,7 @@ Badger.prototype = {
       Migrations.forgetCloudflare,
       Migrations.forgetConsensu,
       Migrations.resetWebRTCIPHandlingPolicy2,
+      Migrations.addLocalHostSitesToDisabledSiteList,
     ];
 
     for (var i = migrationLevel; i < migrations.length; i++) {
