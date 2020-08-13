@@ -807,6 +807,11 @@ Badger.prototype = {
    * @returns {Boolean} true if enabled
    */
   isPrivacyBadgerEnabled: function(origin) {
+    // if origin is local host automatically disable PB on site
+    if (origin.startsWith('127.0') || origin.startsWith('http://localhost') || origin.startsWith('localhost')) {
+      return false;
+    }
+
     var settings = this.getSettings();
     var disabledSites = settings.getItem("disabledSites");
     if (disabledSites && disabledSites.length > 0) {
