@@ -138,23 +138,6 @@ exports.Migrations= {
     }
   },
 
-  // defaults to localhost sites being disabled, allows developers to re-enable them if they choose
-  addLocalHostSitesToDisabledSiteList: function (badger) {
-    console.log('running migration to add localhost addresses to disabled sites list ...');
-
-    // TODO: doesn't cover all IPv4 or IPv6 loopback addresses
-    let localHosts = ['127.0.0.1', 'localhost'];
-    let settings = badger.getSettings();
-    let disabledSites = settings.getItem("disabledSites");
-
-    localHosts.forEach(localhost => {
-      console.log('adding local host : ' + localhost + ' to disabled sites list...');
-      disabledSites.push(localhost);
-    });
-
-    settings.setItem("disabledSites", disabledSites);
-  },
-
   unblockIncorrectlyBlockedDomains: function (badger) {
     console.log("Running migration to unblock likely incorrectly blocked domains ...");
 
