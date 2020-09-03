@@ -110,13 +110,6 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
-    // return early if origin url is localhost
-    ['127.0', 'localhost', 'http://localhost'].forEach((localhost) => {
-      if(details.originUrl && details.originUrl.startsWith(localhost)) {
-        return {};
-      }
-    });
-
     let self = this,
       request_host = (new URI(details.url)).host,
       request_origin = window.getBaseDomain(request_host);
@@ -129,6 +122,13 @@ HeuristicBlocker.prototype = {
     }
 
     let tab_origin = self.tabOrigins[details.tabId];
+
+    // return early if tab origin is a localhost address
+    ['127.0', 'localhost', 'http://localhost'].forEach((localhost) => {
+      if (tab_origin.startsWith(localhost)) {
+        return {};
+      }
+    });
 
     // ignore first-party requests
     if (!tab_origin || !utils.isThirdPartyDomain(request_origin, tab_origin)) {
