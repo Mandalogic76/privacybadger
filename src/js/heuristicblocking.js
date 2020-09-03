@@ -110,6 +110,13 @@ HeuristicBlocker.prototype = {
       return {};
     }
 
+    // return early if origin url is localhost
+    ['127.0', 'localhost', 'http://localhost'].forEach((localhost) => {
+      if(details.originUrl && details.originUrl.startsWith(localhost)) {
+        return {};
+      }
+    });
+
     let self = this,
       request_host = (new URI(details.url)).host,
       request_origin = window.getBaseDomain(request_host);
